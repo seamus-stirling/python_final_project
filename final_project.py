@@ -21,25 +21,26 @@ def city_maps(city_restaurant_data, cities):
     city_selector = st.selectbox("Select a City", cities)
     st.write("Current City:", city_selector)
 
+    selected_city = city_selector
     view_state = pdk.ViewState(
-        latitude = city_restaurant_data["Boston"]["latitude"].mean(),
-        longitude = city_restaurant_data["Boston"]["longitude"].mean(),
+        latitude = selected_city["latitude"].mean(),
+        longitude = selected_city["longitude"].mean(),
         zoom = 11,
         pitch = 0
     ),
-    layers = [
+    layer = [
         pdk.Layer(
-            "HexagonLayer",
-            data = city_restaurant_data[city_selector],
+            "ScatterplotLayer",
+            data = selected_city,
             get_position = "[longitude, latitude]",
             get_color = "[255, 0, 0]",
             get_radius = 100,
             )
     ]
     map = pdk.Deck(
-        map_style= None,
+        map_style ="mapbox://styles/mapbox/light-v9",
         intial_view_state = view_state,
-        layers = layers
+        layers = [layer]
     )
     st.pydeck_chart(map)
 
