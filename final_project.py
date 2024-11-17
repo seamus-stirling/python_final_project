@@ -36,7 +36,8 @@ def city_maps(city_restaurant_data, cities):
             get_radius = 100,
             )
     ]
-    map = pydeck.Deck(
+    map = pdk.Deck(
+        map_style= None,
         intial_view_state = view_state,
         layers = layers
     )
