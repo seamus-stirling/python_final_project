@@ -23,8 +23,8 @@ def city_maps(city_restaurant_data, cities):
 
     selected_city = city_selector
     view_state = pdk.ViewState(
-        latitude = selected_city["latitude"].mean(),
-        longitude = selected_city["longitude"].mean(),
+        latitude = int(selected_city["latitude"].mean()),
+        longitude = int(selected_city["longitude"].mean()),
         zoom = 11,
         pitch = 0
     ),
