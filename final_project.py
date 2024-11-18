@@ -98,10 +98,10 @@ def home_page(city_restaurant_data, cities):
     city_selector = st.selectbox("Select a City", cities)
     column1, column2 = st.columns(2)
     with column1:
-        st.header = "Interactive Map"
+        st.header("Interactive Map")
         city_maps(city_restaurant_data, city_selector)
     with column2:
-        st.header = "Restaurant Locations"
+        st.header("Restaurant Locations")
         city_dataframe(city_restaurant_data, city_selector)
 
 
@@ -141,7 +141,7 @@ def popularity_map(restaurant_data):
         layers=layer,
         tooltip=tool_tip
     )
-    st.header = "All Fast Food Locations"
+    st.header("All Fast Food Locations")
     st.pydeck_chart(map, height=600)
 
 def logo():
