@@ -94,7 +94,8 @@ def city_dataframe(city_restaurant_data, city_selector):
 # [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(layout="wide")
-    st.title("Fast Food Restaurants by City")
+    title = "Fast Food Restaurants by City"
+    st.title(title)
     popularity_map(restaurant_data)
     city_selector = st.selectbox("Select a City", cities)
     column1, column2 = st.columns(2)
