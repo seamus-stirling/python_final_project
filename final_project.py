@@ -76,10 +76,10 @@ def city_dataframe(city_restaurant_data, city_selector):
             "longitude": "Longitude"
         }
     )
-    csv_data = city_restaurant_data.to_csv(index=False)
+
     st.download_button(
         label="Download this data as a CSV",
-        data= csv_data,
+        data= city_restaurant_data[city_selector].to_csv(index=False),
         file_name=city_selector + "_fast_food_restaurants.csv",
         mime="text/csv"
     )
