@@ -39,7 +39,7 @@ def city_maps(city_restaurant_data, city_selector):
     view_state = pdk.ViewState(
         latitude = float(city_restaurant_data[selected_city]["latitude"].mean()),
         longitude = float(city_restaurant_data[selected_city]["longitude"].mean()),
-        zoom = 11,
+        zoom = 12,
         pitch = 0
     )
     layer = [
@@ -106,13 +106,42 @@ def home_page(city_restaurant_data, cities):
 
 
 # [VIZ1] and [DA3]
-def most_locations():
+def most_locations(restaurant_data):
+
 
     return
 
-def popularity_map():
-
-    return
+def popularity_map(restaurant_data):
+    view_state = pdk.ViewState(
+        latitude=float(restaurant_data["latitude"].mean()),
+        longitude=float(restaurant_data["longitude"].mean()),
+        zoom=20,
+        pitch=0
+    )
+    layer = [
+        pdk.Layer(
+            "ScatterplotLayer",
+            data= restaurant_data,
+            get_position=["longitude", "latitude"],
+            get_color="[255, 0, 0]",
+            get_radius=150,
+            pickable=True
+        )
+    ]
+    tool_tip = {"html": "{name} <br> {Full Address}",
+                "style": {
+                    "backgroundColor": "steelblue",
+                    "color": "white",
+                    "fontSize": "12px"
+                }
+                }
+    map = pdk.Deck(
+        map_style="mapbox://styles/mapbox/light-v9",
+        initial_view_state=view_state,
+        layers=layer,
+        tooltip=tool_tip
+    )
+    st.pydeck_chart(map, height=600)
 
 def logo():
 
@@ -123,5 +152,6 @@ def main():
     restaurant_data = read_data(csv_file)
     city_restaurant_data, cities = city_splitter(restaurant_data)
     home_page(city_restaurant_data, cities)
+    popularity_map(restaurant_data)
 
 main()
