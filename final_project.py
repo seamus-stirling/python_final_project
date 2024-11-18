@@ -49,6 +49,7 @@ def city_maps(city_restaurant_data, city_selector):
             get_position = ["longitude", "latitude"],
             get_color = "[255, 0, 0]",
             get_radius = 150,
+            pickable = True
             )
     ]
     tool_tip = {"html": "{name}<br>{Full Address",
@@ -65,7 +66,6 @@ def city_maps(city_restaurant_data, city_selector):
         tooltip = tool_tip
     )
     st.pydeck_chart(map, height=600)
-    return
 
 # [VIZ2] and [ST2]
 def city_dataframe(city_restaurant_data, city_selector):
