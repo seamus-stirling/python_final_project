@@ -14,6 +14,8 @@ def read_data(csv_file):
 def city_splitter(restaurant_data):
     cities = ["Boston", "New York", "Los Angeles", "Philadelphia", "Atlanta"]
     city_restaurant_data = {city: restaurant_data[restaurant_data['city'] == city] for city in cities}
+    latitude = int(["latitude"].mean()),
+
     return city_restaurant_data, cities
 
 def city_maps(city_restaurant_data, cities):
@@ -23,8 +25,8 @@ def city_maps(city_restaurant_data, cities):
 
     selected_city = city_selector
     view_state = pdk.ViewState(
-        latitude = int(selected_city["latitude"].mean()),
-        longitude = int(selected_city["longitude"].mean()),
+        latitude = int(city_restaurant_data[selected_city]["latitude"].mean()),
+        longitude = int(city_restaurant_data[selected_city]["longitude"].mean()),
         zoom = 11,
         pitch = 0
     ),
@@ -44,8 +46,8 @@ def city_maps(city_restaurant_data, cities):
     )
     st.pydeck_chart(map)
 
-
     return
+
 
 def most_locations():
 
