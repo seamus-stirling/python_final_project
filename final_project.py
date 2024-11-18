@@ -115,7 +115,7 @@ def popularity_map(restaurant_data):
     view_state = pdk.ViewState(
         latitude=float(restaurant_data["latitude"].mean()),
         longitude=float(restaurant_data["longitude"].mean()),
-        zoom=20,
+        zoom=5,
         pitch=0
     )
     layer = [
@@ -141,6 +141,7 @@ def popularity_map(restaurant_data):
         layers=layer,
         tooltip=tool_tip
     )
+    st.title = "All Fast Food Locations"
     st.pydeck_chart(map, height=600)
 
 def logo():
