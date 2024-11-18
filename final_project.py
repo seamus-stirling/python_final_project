@@ -16,7 +16,7 @@ import numpy as np
 from altair import layer
 
 
-# [PY3] Takes the raw data that I downloaded and reorganized and puts it into a dataframe only using the important info columns
+# [PY3], [DA1], [DA9] Takes the raw data that I downloaded and reorganized and puts it into a dataframe only using the important info columns
 def read_data(csv_file):
     try:
         restaurant_data = pd.read_csv(csv_file, usecols=[1,2,3,4,5,6,7,8,9], index_col="name")
@@ -62,8 +62,9 @@ def city_maps(city_restaurant_data, city_selector):
 # [VIZ2]
 def city_dataframe(city_restaurant_data, city_selector):
     st.dataframe(
-        city_restaurant_data[city_selector],
-        column_config={
+        data = city_restaurant_data[city_selector],
+        height = 800,
+        column_config = {
             "categories": "Restaurant Type",
             "name": "Name",
             "address": "Street",
@@ -75,6 +76,7 @@ def city_dataframe(city_restaurant_data, city_selector):
         }
     )
 
+# [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities):
     st.set_page_config(layout="wide")
     st.title("Fast Food Restaurants by City")
