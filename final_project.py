@@ -89,6 +89,12 @@ def home_page(city_restaurant_data, cities):
     with column2:
         st.header = "Restaurant Locations"
         city_dataframe(city_restaurant_data, city_selector)
+        st.download_button (
+            label = "Download this data as a CSV",
+            data = city_dataframe(city_restaurant_data, city_selector),
+            file_name = city_selector + "_fast_food_restaurants.csv",
+            mime = "text/csv"
+        )
 
 # [VIZ1] and [DA3]
 def most_locations():
