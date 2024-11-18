@@ -141,7 +141,7 @@ def popularity_map(restaurant_data):
         layers=layer,
         tooltip=tool_tip
     )
-    st.title = "All Fast Food Locations"
+    st.header = "All Fast Food Locations"
     st.pydeck_chart(map, height=600)
 
 def logo():
