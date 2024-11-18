@@ -48,7 +48,7 @@ def city_maps(city_restaurant_data, city_selector):
             data = city_restaurant_data[selected_city],
             get_position = ["longitude", "latitude"],
             get_color = "[255, 0, 0]",
-            get_radius = 100,
+            get_radius = 200,
             )
     ]
     map = pdk.Deck(
@@ -56,7 +56,7 @@ def city_maps(city_restaurant_data, city_selector):
         initial_view_state = view_state,
         layers = layer
     )
-    st.pydeck_chart(map)
+    st.pydeck_chart(map, height=600)
     return
 
 # [VIZ2]
@@ -70,6 +70,7 @@ def city_dataframe(city_restaurant_data, city_selector):
             "address": "Street",
             "city": "City",
             "province": "State",
+            "country": "Country",
             "postalCode": "Zip Code",
             "latitude":"Latitude",
             "longitude": "Longitude"
