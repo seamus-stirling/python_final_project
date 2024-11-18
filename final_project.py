@@ -19,7 +19,7 @@ from altair import layer
 # [PY3], [DA1], [DA9] Takes the raw data that I downloaded and reorganized and puts it into a dataframe only using the important info columns
 def read_data(csv_file):
     try:
-        restaurant_data = pd.read_csv(csv_file, usecols=[1,2,3,4,5,6,7,8,9], index_col="name")
+        restaurant_data = pd.read_csv(csv_file, usecols=[1,2,3,4,5,6,7,8,9])
         restaurant_data["Full Address"] = restaurant_data.apply(lambda row: f"{row['address']}, {row['city']}, {row['province']}", axis=1)
         return restaurant_data
     except Exception as e:
