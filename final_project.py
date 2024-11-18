@@ -63,7 +63,7 @@ def city_maps(city_restaurant_data, city_selector):
 def city_dataframe(city_restaurant_data, city_selector):
     st.dataframe(
         data = city_restaurant_data[city_selector],
-        height = 800,
+        height = 600,
         column_config = {
             "categories": "Restaurant Type",
             "name": "Name",
