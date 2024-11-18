@@ -12,7 +12,7 @@ def read_data(csv_file):
 
 # Using the restaurant data and my city list I read all of the data for the corresponding city into a dictionary
 def city_splitter(restaurant_data):
-    cities = ["Boston", "New York", "Los Angeles", "Philadelphia", "Atlanta"]
+    cities = ["Boston", "New York", "Los Angeles", "Philadelphia", "Atlanta", "Denver"]
     filtered_restaurant_data = restaurant_data[(restaurant_data["city"] != "Atlanta") | (restaurant_data["province"] == "GA")]
     city_restaurant_data = {city: filtered_restaurant_data[filtered_restaurant_data["city"] == city] for city in cities}
     return city_restaurant_data, cities
