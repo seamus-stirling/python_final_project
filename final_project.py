@@ -51,15 +51,18 @@ def city_maps(city_restaurant_data, city_selector):
             get_radius = 200,
             )
     ]
+    tool_tip = {"html": "{name} \n {Full Address"}
     map = pdk.Deck(
         map_style ="mapbox://styles/mapbox/light-v9",
         initial_view_state = view_state,
-        layers = layer
+        layers = layer,
+        tooltip = tool_tip
     )
+
     st.pydeck_chart(map, height=600)
     return
 
-# [VIZ2]
+# [VIZ2] and [ST2]
 def city_dataframe(city_restaurant_data, city_selector):
     st.dataframe(
         data = city_restaurant_data[city_selector],
@@ -76,11 +79,10 @@ def city_dataframe(city_restaurant_data, city_selector):
             "longitude": "Longitude"
         }
     )
-
     st.download_button(
         label="Download this data as a CSV",
         data= city_restaurant_data[city_selector].to_csv(index=False),
-        file_name=city_selector + "_fast_food_restaurants.csv",
+        file_name=city_selector + "_Fast_Food_Restaurants.csv",
         mime="text/csv"
     )
 
