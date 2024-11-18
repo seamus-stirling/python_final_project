@@ -76,6 +76,13 @@ def city_dataframe(city_restaurant_data, city_selector):
             "longitude": "Longitude"
         }
     )
+    csv_data = city_restaurant_data.to_csv(index=False)
+    st.download_button(
+        label="Download this data as a CSV",
+        data= csv_data,
+        file_name=city_selector + "_fast_food_restaurants.csv",
+        mime="text/csv"
+    )
 
 # [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities):
@@ -89,12 +96,7 @@ def home_page(city_restaurant_data, cities):
     with column2:
         st.header = "Restaurant Locations"
         city_dataframe(city_restaurant_data, city_selector)
-        st.download_button (
-            label = "Download this data as a CSV",
-            data = city_dataframe(city_restaurant_data, city_selector),
-            file_name = city_selector + "_fast_food_restaurants.csv",
-            mime = "text/csv"
-        )
+
 
 # [VIZ1] and [DA3]
 def most_locations():
