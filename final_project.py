@@ -94,7 +94,7 @@ def city_dataframe(city_restaurant_data, city_selector):
 # [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities):
     st.set_page_config(layout="wide")
-    st.title("Fast Food Restaurants by City")
+    st.header("Fast Food Restaurants by City")
     city_selector = st.selectbox("Select a City", cities)
     column1, column2 = st.columns(2)
     with column1:
@@ -141,7 +141,7 @@ def popularity_map(restaurant_data):
         layers=layer,
         tooltip=tool_tip
     )
-    st.subheader("All Fast Food Locations")
+    st.header("All Fast Food Locations")
     st.pydeck_chart(map, height=600)
 
 def logo():
