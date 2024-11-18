@@ -48,17 +48,16 @@ def city_maps(city_restaurant_data, city_selector):
             data = city_restaurant_data[selected_city],
             get_position = ["longitude", "latitude"],
             get_color = "[255, 0, 0]",
-            get_radius = 200,
+            get_radius = 150,
             )
     ]
-    tool_tip = {"html": "{name} \n {Full Address"}
+    tool_tip = {"html": "{name}, {Full Address"}
     map = pdk.Deck(
         map_style ="mapbox://styles/mapbox/light-v9",
         initial_view_state = view_state,
         layers = layer,
         tooltip = tool_tip
     )
-
     st.pydeck_chart(map, height=600)
     return
 
