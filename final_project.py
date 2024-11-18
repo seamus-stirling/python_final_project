@@ -1,7 +1,7 @@
 import pandas as pd
-import pydeck
 import pydeck as pdk
 import streamlit as st
+import numpy as np
 from altair import layer
 
 
@@ -23,24 +23,24 @@ def city_maps(city_restaurant_data, cities):
 
     selected_city = city_selector
     view_state = pdk.ViewState(
-        latitude = int(city_restaurant_data[selected_city]["latitude"].mean()),
-        longitude = int(city_restaurant_data[selected_city]["longitude"].mean()),
+        latitude = float(city_restaurant_data[selected_city]["latitude"].mean()),
+        longitude = float(city_restaurant_data[selected_city]["longitude"].mean()),
         zoom = 11,
         pitch = 0
-    ),
+    )
     layer = [
         pdk.Layer(
             "ScatterplotLayer",
-            data = selected_city,
-            get_position = "[longitude, latitude]",
+            data = city_restaurant_data[selected_city],
+            get_position = ["longitude", "latitude"],
             get_color = "[255, 0, 0]",
             get_radius = 100,
             )
     ]
     map = pdk.Deck(
         map_style ="mapbox://styles/mapbox/light-v9",
-        intial_view_state = view_state,
-        layers = [layer]
+        initial_view_state = view_state,
+        layers = layer
     )
     st.pydeck_chart(map)
 
