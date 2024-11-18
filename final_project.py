@@ -1,3 +1,14 @@
+"""
+Name:       Seamus Stirling
+CS230:      Section 6
+Data:       Fast Food Restaurants in the USA
+URL:
+Description:
+
+This program takes a data file full of fast food locations in the United States and offers and interactive way to visualize the data.
+"""
+
+
 import pandas as pd
 import pydeck as pdk
 import streamlit as st
@@ -5,18 +16,23 @@ import numpy as np
 from altair import layer
 
 
-# Takes the raw data that I downloaded and reorganized and puts it into a dataframe only using the important info columns
+# [PY3] Takes the raw data that I downloaded and reorganized and puts it into a dataframe only using the important info columns
 def read_data(csv_file):
-    restaurant_data = pd.read_csv(csv_file, usecols=[1,2,3,4,5,6,7,8,9], index_col="name")
-    return restaurant_data
+    try:
+        restaurant_data = pd.read_csv(csv_file, usecols=[1,2,3,4,5,6,7,8,9], index_col="name")
+        restaurant_data["Full Address"] = restaurant_data.apply(lambda row: f"{row['address']}, {row['city']}, {row['province']}", axis=1)
+        return restaurant_data
+    except Exception as e:
+        st.error("Error: The file is either empty, unreadable, or missing a column")
 
-# Using the restaurant data and my city list I read all of the data for the corresponding city into a dictionary
+# [PY2], [PY4], [PY5], and [DA5] Using the restaurant data and my city list I read all of the data for the corresponding city into a dictionary
 def city_splitter(restaurant_data):
     cities = ["Boston", "New York", "Los Angeles", "Philadelphia", "Atlanta"]
     filtered_restaurant_data = restaurant_data[(restaurant_data["city"] != "Atlanta") | (restaurant_data["province"] == "GA")]
     city_restaurant_data = {city: filtered_restaurant_data[filtered_restaurant_data["city"] == city] for city in cities}
     return city_restaurant_data, cities
 
+# [MAP]
 def city_maps(city_restaurant_data, city_selector):
     st.write("Current City:", city_selector)
     selected_city = city_selector
@@ -43,6 +59,7 @@ def city_maps(city_restaurant_data, city_selector):
     st.pydeck_chart(map)
     return
 
+# [VIZ2]
 def city_dataframe(city_restaurant_data, city_selector):
     st.dataframe(
         city_restaurant_data[city_selector],
@@ -59,7 +76,6 @@ def city_dataframe(city_restaurant_data, city_selector):
     )
 
 def home_page(city_restaurant_data, cities):
-    #st.header("Fast Food Restaurants by City")
     st.set_page_config(layout="wide")
     st.title("Fast Food Restaurants by City")
     city_selector = st.selectbox("Select a City", cities)
@@ -71,7 +87,7 @@ def home_page(city_restaurant_data, cities):
         st.header = "Restaurant Locations"
         city_dataframe(city_restaurant_data, city_selector)
 
-
+# [VIZ1] and [DA3]
 def most_locations():
 
     return
@@ -89,4 +105,5 @@ def main():
     restaurant_data = read_data(csv_file)
     city_restaurant_data, cities = city_splitter(restaurant_data)
     home_page(city_restaurant_data, cities)
+
 main()
