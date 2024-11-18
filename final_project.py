@@ -115,7 +115,7 @@ def popularity_map(restaurant_data):
     view_state = pdk.ViewState(
         latitude=float(restaurant_data["latitude"].mean()),
         longitude=float(restaurant_data["longitude"].mean()),
-        zoom=5,
+        zoom=2,
         pitch=0
     )
     layer = [
@@ -124,7 +124,7 @@ def popularity_map(restaurant_data):
             data= restaurant_data,
             get_position=["longitude", "latitude"],
             get_color="[255, 0, 0]",
-            get_radius=150,
+            get_radius=250,
             pickable=True
         )
     ]
