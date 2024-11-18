@@ -51,7 +51,13 @@ def city_maps(city_restaurant_data, city_selector):
             get_radius = 150,
             )
     ]
-    tool_tip = {"html": "{name}, {Full Address"}
+    tool_tip = {"html": "{name}<br>{Full Address",
+                "style": {
+                    "backgroundColor": "steelblue",
+                    "color": "white",
+                    "fontSize": "12px"
+                    }
+                }
     map = pdk.Deck(
         map_style ="mapbox://styles/mapbox/light-v9",
         initial_view_state = view_state,
