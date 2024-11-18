@@ -58,7 +58,7 @@ def city_dataframe(city_restaurant_data, city_selector):
     )
 
 def home_page(city_restaurant_data, cities):
-    st.header("Fast Food Restaurants by City")
+    #st.header("Fast Food Restaurants by City")
     city_selector = st.selectbox("Select a City", cities)
     column1, column2 = st.columns(2)
     with column1:
