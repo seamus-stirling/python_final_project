@@ -92,9 +92,10 @@ def city_dataframe(city_restaurant_data, city_selector):
     )
 
 # [ST1] need to add ST 2-4
-def home_page(city_restaurant_data, cities):
+def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(layout="wide")
     "Fast Food Restaurants by City"
+    popularity_map(restaurant_data)
     city_selector = st.selectbox("Select a City", cities)
     column1, column2 = st.columns(2)
     with column1:
@@ -152,7 +153,7 @@ def main():
     csv_file = "fast_food_usa.csv"
     restaurant_data = read_data(csv_file)
     city_restaurant_data, cities = city_splitter(restaurant_data)
-    home_page(city_restaurant_data, cities)
-    popularity_map(restaurant_data)
+    home_page(city_restaurant_data, cities, restaurant_data)
+
 
 main()
