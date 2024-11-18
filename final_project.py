@@ -52,7 +52,7 @@ def city_maps(city_restaurant_data, city_selector):
             pickable = True
             )
     ]
-    tool_tip = {"html": "{name}<br>{Full Address",
+    tool_tip = {"html": "{name}<br>{Full Address}",
                 "style": {
                     "backgroundColor": "steelblue",
                     "color": "white",
