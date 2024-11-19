@@ -41,7 +41,7 @@ def most_locations(restaurant_data):
 
 def top_5_map(top_5_data):
     selection = st.multiselect("Restaurants", ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"], default= ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"])
-    top_5_data = top_5_data[top_5_data["name"].isin(selection)]
+    filtered_top_5_data = top_5_data[top_5_data["name"].isin(selection)]
     view_state = pdk.ViewState(
         latitude=float(top_5_data["latitude"].mean()),
         longitude=float(top_5_data["longitude"].mean()),
@@ -49,7 +49,7 @@ def top_5_map(top_5_data):
         pitch=0
     )
     icon_data = {
-        "url": top_5_data["Icon URL"],
+        "url": "",
         "width": 128,
         "height": 128,
         "anchorY": 128
@@ -68,7 +68,7 @@ def top_5_map(top_5_data):
         pdk.Layer(
             "IconLayer",
             data=top_5_data,
-            get_icon = icon_data,
+            get_icon = ["Icon URL"],
             get_position=["longitude", "latitude"],
             pickable=True
         )
