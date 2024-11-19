@@ -156,5 +156,4 @@ def main():
     home_page(city_restaurant_data, cities, restaurant_data)
     most_locations(restaurant_data)
 
-
-
+main()
