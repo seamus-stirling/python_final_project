@@ -23,6 +23,7 @@ def read_data(csv_file):
     except Exception as e:
         st.error("Error: The file is either empty, unreadable, or missing a column")
 
+
 # [PY2], [PY4], [PY5], and [DA5] Using the restaurant data and my city list I read all of the data for the corresponding city into a dictionary
 def city_splitter(restaurant_data):
     cities = ["Boston", "New York", "Los Angeles", "Philadelphia", "Atlanta", "Houston", "Seattle"]
@@ -30,7 +31,54 @@ def city_splitter(restaurant_data):
     city_restaurant_data = {city: filtered_restaurant_data[filtered_restaurant_data["city"] == city] for city in cities}
     return city_restaurant_data, cities
 
-# [MAP]
+
+# [VIZ1] and [DA3]
+def most_locations(restaurant_data):
+    locations = restaurant_data.groupby("name").size().sort_values(ascending=False)
+    top_5 = locations.head(5).index.tolist()
+    top_5_data = restaurant_data[restaurant_data["name"].isin(top_5)]
+    return top_5_data
+
+def icons(restuarant):
+
+    return
+
+def top_5_map(top_5_data):
+    view_state = pdk.ViewState(
+        latitude=float(top_5_data["latitude"].mean()),
+        longitude=float(top_5_data["longitude"].mean()),
+        zoom=2,
+        pitch=0
+    )
+    layer = [
+        pdk.Layer(
+            "ScatterplotLayer",
+            data=top_5_data,
+            get_position=["longitude", "latitude"],
+            get_color="[255, 0, 0]",
+            get_radius=250,
+            pickable=True
+        )
+    ]
+    tool_tip = {"html": "{name} <br> {Full Address}",
+                "style": {
+                    "backgroundColor": "steelblue",
+                    "color": "white",
+                    "fontSize": "12px"
+                }
+                }
+    map = pdk.Deck(
+        map_style="mapbox://styles/mapbox/light-v9",
+        initial_view_state=view_state,
+        layers=layer,
+        tooltip=tool_tip
+    )
+    st.subheader("All Fast Food Locations")
+    st.pydeck_chart(map, height=600)
+
+    return
+
+# [MAP] This function displays a map based on the chosen city
 def city_maps(city_restaurant_data, city_selector):
     st.write("Current City:", city_selector)
     selected_city = city_selector
@@ -65,7 +113,43 @@ def city_maps(city_restaurant_data, city_selector):
     )
     st.pydeck_chart(map, height=600)
 
-# [VIZ2] and [ST2]
+
+# This function shows all the fast food restaurants nationwide
+def popularity_map(restaurant_data):
+    view_state = pdk.ViewState(
+        latitude=float(restaurant_data["latitude"].mean()),
+        longitude=float(restaurant_data["longitude"].mean()),
+        zoom=2,
+        pitch=0
+    )
+    layer = [
+        pdk.Layer(
+            "ScatterplotLayer",
+            data= restaurant_data,
+            get_position=["longitude", "latitude"],
+            get_color="[255, 0, 0]",
+            get_radius=250,
+            pickable=True
+        )
+    ]
+    tool_tip = {"html": "{name} <br> {Full Address}",
+                "style": {
+                    "backgroundColor": "steelblue",
+                    "color": "white",
+                    "fontSize": "12px"
+                    }
+                }
+    map = pdk.Deck(
+        map_style="mapbox://styles/mapbox/light-v9",
+        initial_view_state=view_state,
+        layers=layer,
+        tooltip=tool_tip
+    )
+    st.subheader("All Fast Food Locations")
+    st.pydeck_chart(map, height=600)
+
+
+# [VIZ2] and [ST2] This function sets the parameters for the city dataframe and provides a button to download the info as a csv
 def city_dataframe(city_restaurant_data, city_selector):
     st.dataframe(
         data = city_restaurant_data[city_selector],
@@ -89,6 +173,7 @@ def city_dataframe(city_restaurant_data, city_selector):
         mime="text/csv"
     )
 
+
 # [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(page_title="Fast Food Restaurants by City" , layout="wide")
@@ -104,56 +189,20 @@ def home_page(city_restaurant_data, cities, restaurant_data):
         city_dataframe(city_restaurant_data, city_selector)
 
 
-# [VIZ1] and [DA3]
-def most_locations(restaurant_data):
-    locations = restaurant_data.groupby("name").size().sort_values(ascending=False)
-    top_5 = locations.head(5).index.tolist()
-    top_5_data = restaurant_data[restaurant_data["name"].isin(top_5)]
-    st.dataframe(data=top_5_data)
-    return top_5_data
 
-def popularity_map(restaurant_data):
-    view_state = pdk.ViewState(
-        latitude=float(restaurant_data["latitude"].mean()),
-        longitude=float(restaurant_data["longitude"].mean()),
-        zoom=2,
-        pitch=0
-    )
-    layer = [
-        pdk.Layer(
-            "ScatterplotLayer",
-            data= restaurant_data,
-            get_position=["longitude", "latitude"],
-            get_color="[255, 0, 0]",
-            get_radius=250,
-            pickable=True
-        )
-    ]
-    tool_tip = {"html": "{name} <br> {Full Address}",
-                "style": {
-                    "backgroundColor": "steelblue",
-                    "color": "white",
-                    "fontSize": "12px"
-                }
-                }
-    map = pdk.Deck(
-        map_style="mapbox://styles/mapbox/light-v9",
-        initial_view_state=view_state,
-        layers=layer,
-        tooltip=tool_tip
-    )
-    st.subheader("All Fast Food Locations")
-    st.pydeck_chart(map, height=600)
 
 def logo():
 
     return
+
+
+
 
 def main():
     csv_file = "fast_food_usa.csv"
     restaurant_data = read_data(csv_file)
     city_restaurant_data, cities = city_splitter(restaurant_data)
     home_page(city_restaurant_data, cities, restaurant_data)
-    most_locations(restaurant_data)
+    top_5_map(most_locations(restaurant_data))
 
 main()
