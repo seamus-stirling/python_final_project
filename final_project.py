@@ -8,13 +8,11 @@ Description:
 This program takes a data file full of fast food locations in the United States and offers and interactive way to visualize the data.
 """
 
-
 import pandas as pd
 import pydeck as pdk
 import streamlit as st
 import numpy as np
 from altair import layer
-
 
 # [PY3], [DA1], [DA9] Takes the raw data that I downloaded and reorganized and puts it into a dataframe only using the important info columns
 def read_data(csv_file):
@@ -95,6 +93,7 @@ def city_dataframe(city_restaurant_data, city_selector):
 def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(page_title="Fast Food Restaurants by City" , layout="wide")
     popularity_map(restaurant_data)
+    st.header("View and Download Specific City Data")
     city_selector = st.selectbox("Select a City", cities)
     column1, column2 = st.columns(2)
     with column1:
@@ -107,9 +106,11 @@ def home_page(city_restaurant_data, cities, restaurant_data):
 
 # [VIZ1] and [DA3]
 def most_locations(restaurant_data):
-
-
-    return
+    locations = restaurant_data.groupby("name").size().sort_values(ascending=False)
+    top_5 = locations.head(5).index.tolist()
+    top_5_data = restaurant_data[restaurant_data["name"].isin(top_5)]
+    st.dataframe(data=top_5_data)
+    return top_5_data
 
 def popularity_map(restaurant_data):
     view_state = pdk.ViewState(
@@ -153,6 +154,7 @@ def main():
     restaurant_data = read_data(csv_file)
     city_restaurant_data, cities = city_splitter(restaurant_data)
     home_page(city_restaurant_data, cities, restaurant_data)
+    most_locations(restaurant_data)
 
 
-main()
+
