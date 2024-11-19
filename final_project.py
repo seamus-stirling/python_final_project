@@ -67,7 +67,7 @@ def top_5_map(top_5_data):
         pdk.Layer(
             "IconLayer",
             data=top_5_data,
-            get_icon = "Icon URL",
+            get_icon = "'url': Icon URL, 'width': 128, 'height': 128, 'anchorY': 128",
             get_position=["longitude", "latitude"],
             pickable=True
         )
