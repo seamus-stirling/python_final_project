@@ -39,21 +39,42 @@ def most_locations(restaurant_data):
     top_5_data = restaurant_data[restaurant_data["name"].isin(top_5)]
     return top_5_data
 
-def icons(restuarant):
+def icons(selection):
 
     return
 
 def top_5_map(top_5_data):
+    selection = st.multiselect("Restaurants", ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"])
     view_state = pdk.ViewState(
         latitude=float(top_5_data["latitude"].mean()),
         longitude=float(top_5_data["longitude"].mean()),
         zoom=2,
         pitch=0
     )
+    icon_data = {
+        "url": "",
+        "width": 128,
+        "height": 128,
+        "anchorY": 128
+    }
+    top_5_data["Icon Data"] = None
+    for i in top_5_data.index:
+        if top_5_data["name"] == "McDonald's":
+            top_5_data["icon_data"][i] = "https://logos-world.net/wp-content/uploads/2020/04/McDonalds-Logo.png"
+        elif top_5_data["name"] == "Burger King":
+            top_5_data["icon_data"][i] = "https://banner2.cleanpng.com/20180925/hjq/kisspng-burger-king-gmbh-munchen-logo-hamburger-brand-burger-king-logo-png-transparent-svg-vector-fr-1713934150498.webp"
+        elif top_5_data["name"] == "Arby's":
+            top_5_data["icon_data"][i] = "https://w7.pngwing.com/pngs/814/602/png-transparent-arby-039-s-hd-logo-thumbnail.png"
+        elif top_5_data["name"] == "Taco Bell":
+            top_5_data["icon_data"][i] = "https://banner2.cleanpng.com/20180809/glx/0b348786c1c4f0b18e517d4495732b24.webp"
+        else:
+            top_5_data["icon_data"][i] = "https://e7.pngegg.com/pngimages/278/320/png-clipart-subway-logo-sandwich-restaurant-food-subway-food-text.png"
+
     layer = [
         pdk.Layer(
             "ScatterplotLayer",
             data=top_5_data,
+            icon = top_5_data["Icon Data"],
             get_position=["longitude", "latitude"],
             get_color="[255, 0, 0]",
             get_radius=250,
@@ -73,10 +94,9 @@ def top_5_map(top_5_data):
         layers=layer,
         tooltip=tool_tip
     )
-    st.subheader("All Fast Food Locations")
+    st.subheader("The 5 Restaurants with the Most Locations")
     st.pydeck_chart(map, height=600)
 
-    return
 
 # [MAP] This function displays a map based on the chosen city
 def city_maps(city_restaurant_data, city_selector):
@@ -204,5 +224,5 @@ def main():
     city_restaurant_data, cities = city_splitter(restaurant_data)
     home_page(city_restaurant_data, cities, restaurant_data)
     top_5_map(most_locations(restaurant_data))
-
+    
 main()
