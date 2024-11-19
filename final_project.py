@@ -57,24 +57,21 @@ def top_5_map(top_5_data):
         "height": 128,
         "anchorY": 128
     }
-    top_5_data["Icon Data"] = None
-    for i in top_5_data.index:
-        if top_5_data["name"] == "McDonald's":
-            top_5_data["icon_data"][i] = "https://logos-world.net/wp-content/uploads/2020/04/McDonalds-Logo.png"
-        elif top_5_data["name"] == "Burger King":
-            top_5_data["icon_data"][i] = "https://banner2.cleanpng.com/20180925/hjq/kisspng-burger-king-gmbh-munchen-logo-hamburger-brand-burger-king-logo-png-transparent-svg-vector-fr-1713934150498.webp"
-        elif top_5_data["name"] == "Arby's":
-            top_5_data["icon_data"][i] = "https://w7.pngwing.com/pngs/814/602/png-transparent-arby-039-s-hd-logo-thumbnail.png"
-        elif top_5_data["name"] == "Taco Bell":
-            top_5_data["icon_data"][i] = "https://banner2.cleanpng.com/20180809/glx/0b348786c1c4f0b18e517d4495732b24.webp"
-        else:
-            top_5_data["icon_data"][i] = "https://e7.pngegg.com/pngimages/278/320/png-clipart-subway-logo-sandwich-restaurant-food-subway-food-text.png"
+
+    logo_sources = {
+        "McDonald's": "https://logos-world.net/wp-content/uploads/2020/04/McDonalds-Logo.png",
+        "Burger King": "https://banner2.cleanpng.com/20180925/hjq/kisspng-burger-king-gmbh-munchen-logo-hamburger-brand-burger-king-logo-png-transparent-svg-vector-fr-1713934150498.webp",
+        "Arby's": "https://w7.pngwing.com/pngs/814/602/png-transparent-arby-039-s-hd-logo-thumbnail.png",
+        "Taco Bell": "https://banner2.cleanpng.com/20180809/glx/0b348786c1c4f0b18e517d4495732b24.webp",
+        "Subway": "https://e7.pngegg.com/pngimages/278/320/png-clipart-subway-logo-sandwich-restaurant-food-subway-food-text.png"
+    }
+    top_5_data["Icon URL"] = top_5_data["name"].map(logo_sources)
 
     layer = [
         pdk.Layer(
-            "ScatterplotLayer",
+            "IconLayer",
             data=top_5_data,
-            icon = top_5_data["Icon Data"],
+            get_icon = "Icon URL",
             get_position=["longitude", "latitude"],
             get_color="[255, 0, 0]",
             get_radius=250,
@@ -224,5 +221,5 @@ def main():
     city_restaurant_data, cities = city_splitter(restaurant_data)
     home_page(city_restaurant_data, cities, restaurant_data)
     top_5_map(most_locations(restaurant_data))
-    
+
 main()
