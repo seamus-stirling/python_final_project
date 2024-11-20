@@ -195,6 +195,9 @@ def city_dataframe(city_restaurant_data, city_selector):
 def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(page_title="Fast Food Restaurants by City" , layout="wide")
     tab1, tab2, tab3 = st.tabs(["All Fast Food Locations", "View and Download Specific City Data", "Most Popular Fast Food Restaurants"])
+    st.logo = (
+        "https://i.postimg.cc/HsjRhqrj/Mcdonalds-Logo.png"
+    )
     with tab1:
         popularity_map(restaurant_data)
     with tab2:
