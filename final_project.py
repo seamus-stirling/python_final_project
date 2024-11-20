@@ -85,7 +85,6 @@ def top_5_map(top_5_data):
     )
     st.subheader("The 5 Restaurants with the Most Locations")
     st.pydeck_chart(map, height=600)
-    st.dataframe(filtered_top_5_data)
 
 
 # [MAP] and [ST3] This function displays a map based on the chosen city
@@ -191,9 +190,11 @@ def location_bar_chart(restaurant_data):
     location_counts = filtered_data.groupby("name")["name"].count().reset_index(name="Location Count")
     location_counts = location_counts.sort_values(by="Location Count", ascending= False)
     st.bar_chart(
-        data=location_counts,
+        data=location_counts.sort_values(by="Location Count", ascending= False),
         x = "name",
-        y = "Location Count"
+        x_label= "Fast Food Chains",
+        y = "Location Count",
+        color = "name"
     )
 
 
