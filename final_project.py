@@ -129,7 +129,7 @@ def popularity_map(restaurant_data):
     view_state = pdk.ViewState(
         latitude=float(restaurant_data["latitude"].mean()),
         longitude=float(restaurant_data["longitude"].mean()),
-        zoom=2,
+        zoom=3,
         pitch=0
     )
     layer = [
@@ -188,13 +188,17 @@ def location_bar_chart(restaurant_data):
     selected_states = st.selectbox("State Selection", states)
     filtered_data = restaurant_data[restaurant_data["province"] == selected_states]
     location_counts = filtered_data.groupby("name")["name"].count().reset_index(name="Location Count").sort_values(by="Location Count", ascending=False).set_index("name")
-    st.dataframe(location_counts)
-    st.bar_chart(
-        data= location_counts,
-        use_container_width=True,
-        x_label="Fast Food Chains",
-        y_label="Number of Locations",
-    )
+    column3, column4 = st.columns([3, 1])
+    with column3:
+        st.subheader("Chart Data")
+        st.dataframe(location_counts)
+    with column4:
+        st.bar_chart(
+            data= location_counts,
+            use_container_width=True,
+            x_label="Fast Food Chains",
+            y_label="Number of Locations",
+        )
 
 
 # [ST1] need to add ST 2-4
