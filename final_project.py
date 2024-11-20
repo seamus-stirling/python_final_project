@@ -63,15 +63,14 @@ def top_5_map(top_5_data):
         "Subway": "https://e7.pngegg.com/pngimages/278/320/png-clipart-subway-logo-sandwich-restaurant-food-subway-food-text.png"
     }
     top_5_data["Icon URL"] = top_5_data["name"].map(logo_sources)
-    layer = [
-        pdk.Layer(
-            "IconLayer",
-            data=top_5_data,
-            icon = ["Icon URL"],
-            get_position=["longitude", "latitude"],
-            pickable=True
-        )
-    ]
+    layer = pdk.Layer(
+                "IconLayer",
+                data=top_5_data,
+                get_icon = ["Icon URL"],
+                get_position=["longitude", "latitude"],
+                pickable=True
+            )
+    
     tool_tip = {"html": "{name} <br> {Full Address}",
                 "style": {
                     "backgroundColor": "steelblue",
