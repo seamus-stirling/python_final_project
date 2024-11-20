@@ -93,7 +93,7 @@ def top_5_map(top_5_data):
     map = pdk.Deck(
         map_style="mapbox://styles/mapbox/light-v9",
         initial_view_state=view_state,
-        layers= [layer_1, layer_2],
+        layers= [layer_2],
         tooltip=tool_tip
     )
     st.subheader("The 5 Restaurants with the Most Locations")
