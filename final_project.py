@@ -41,7 +41,7 @@ def top_5_map(top_5_data):
     selection = st.multiselect("Restaurants", ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"], default= ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"])
     filtered_top_5_data = top_5_data[top_5_data["name"].isin(selection)]
     logo_sources = {
-        "McDonald's": "mcd_logo.png",
+        "McDonald's": "https://github.com/seamus-stirling/python_final_project/blob/64c94145e164fc0a53b8dbe4cd053892faa4e128/mcd_logo.png",
         "Burger King": "bk_logo.png",
         "Arby's": "arby_logo.png",
         "Taco Bell": "tbell_logo.png",
