@@ -184,13 +184,13 @@ def city_dataframe(city_restaurant_data, city_selector):
     )
 
 def location_bar_chart(restaurant_data):
-    states = restaurant_data["province"].unique()
+    states = sorted(restaurant_data["province"].unique())
     selected_states = st.selectbox("State Selection", states)
     filtered_data = restaurant_data[restaurant_data["province"] == selected_states]
     location_counts = filtered_data.groupby("name")["name"].count().reset_index(name="Location Count")
-    location_counts = location_counts.sort_values(by="Location Count", ascending= False)
+    location_counts = location_counts.sort_values(by="Location Count", ascending=False).set_index("name")
     st.bar_chart(
-        data=location_counts.sort_values(by="Location Count", ascending= False),
+        data=location_counts,
         x = "name",
         x_label= "Fast Food Chains",
         y = "Location Count",
