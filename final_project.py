@@ -55,7 +55,7 @@ def top_5_map(top_5_data):
         pitch=0
     )
     icon_data = {
-        "url": "https://github.com/seamus-stirling/python_final_project/blob/64c94145e164fc0a53b8dbe4cd053892faa4e128/mcd_logo.png",
+        "url": "https://i.postimg.cc/HsjRhqrj/Mcdonalds-Logo.png",
         "width": 128,
         "height": 128,
         "anchorY": 128
