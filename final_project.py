@@ -191,10 +191,7 @@ def location_bar_chart(restaurant_data):
     location_counts = location_counts.sort_values(by="Location Count", ascending=False).set_index("name")
     st.bar_chart(
         data=location_counts,
-        x = "name",
-        x_label= "Fast Food Chains",
-        y = "Location Count",
-        color = "name"
+        use_container_width=True
     )
 
 
