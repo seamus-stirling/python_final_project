@@ -76,7 +76,7 @@ def top_5_map(top_5_data):
                 pickable=True
             )
     layer_2 = pdk.Layer(
-                "IconLayer",
+                "ImageLayer",
                 data= filtered_top_5_data,
                 get_icon= "icon_data",
                 get_position=["longitude", "latitude"],
