@@ -42,6 +42,15 @@ def most_locations(restaurant_data):
 def top_5_map(top_5_data):
     selection = st.multiselect("Restaurants", ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"], default= ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"])
     filtered_top_5_data = top_5_data[top_5_data["name"].isin(selection)]
+    logo_sources = {
+        "McDonald's": "https://logos-world.net/wp-content/uploads/2020/04/McDonalds-Logo.png",
+        "Burger King": "https://banner2.cleanpng.com/20180925/hjq/kisspng-burger-king-gmbh-munchen-logo-hamburger-brand-burger-king-logo-png-transparent-svg-vector-fr-1713934150498.webp",
+        "Arby's": "https://w7.pngwing.com/pngs/814/602/png-transparent-arby-039-s-hd-logo-thumbnail.png",
+        "Taco Bell": "https://banner2.cleanpng.com/20180809/glx/0b348786c1c4f0b18e517d4495732b24.webp",
+        "Subway": "https://e7.pngegg.com/pngimages/278/320/png-clipart-subway-logo-sandwich-restaurant-food-subway-food-text.png"
+    }
+    filtered_top_5_data["Icon URL"] = filtered_top_5_data["name"].map(logo_sources)
+
     view_state = pdk.ViewState(
         latitude=float(top_5_data["latitude"].mean()),
         longitude=float(top_5_data["longitude"].mean()),
@@ -54,15 +63,6 @@ def top_5_map(top_5_data):
         "height": 128,
         "anchorY": 128
     }
-
-    logo_sources = {
-        "McDonald's": "https://logos-world.net/wp-content/uploads/2020/04/McDonalds-Logo.png",
-        "Burger King": "https://banner2.cleanpng.com/20180925/hjq/kisspng-burger-king-gmbh-munchen-logo-hamburger-brand-burger-king-logo-png-transparent-svg-vector-fr-1713934150498.webp",
-        "Arby's": "https://w7.pngwing.com/pngs/814/602/png-transparent-arby-039-s-hd-logo-thumbnail.png",
-        "Taco Bell": "https://banner2.cleanpng.com/20180809/glx/0b348786c1c4f0b18e517d4495732b24.webp",
-        "Subway": "https://e7.pngegg.com/pngimages/278/320/png-clipart-subway-logo-sandwich-restaurant-food-subway-food-text.png"
-    }
-    top_5_data["Icon URL"] = top_5_data["name"].map(logo_sources)
     layer_1 = pdk.Layer(
                 "ScatterplotLayer",
                 data= filtered_top_5_data,
@@ -74,7 +74,7 @@ def top_5_map(top_5_data):
     layer_2 = pdk.Layer(
                 "IconLayer",
                 data= filtered_top_5_data,
-                get_icon= "'url': Icon URL, 'width': 128, 'height': 128, 'anchorY': 128",
+                get_icon= icon_data,
                 get_position=["longitude", "latitude"],
                 pickable=True
             )
@@ -205,6 +205,8 @@ def home_page(city_restaurant_data, cities, restaurant_data):
         st.subheader("Restaurant Locations")
         city_dataframe(city_restaurant_data, city_selector)
 
+def location_bar_chart():
+    return
 
 def main():
     csv_file = "fast_food_usa.csv"
