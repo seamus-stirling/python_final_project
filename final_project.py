@@ -47,11 +47,9 @@ def top_5_map(top_5_data):
         "Taco Bell": "tbell_logo.png",
         "Subway": "subway_logo.png"
     }
-    filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
-        lambda name: {
-            "url": logo_sources.get(name, ""),
-        }
-    )
+    
+    filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(logo_sources)
+
     view_state = pdk.ViewState(
         latitude=float(top_5_data["latitude"].mean()),
         longitude=float(top_5_data["longitude"].mean()),
