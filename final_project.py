@@ -197,7 +197,7 @@ def location_bar_chart(restaurant_data):
     st.bar_chart(
         data=location_counts,
         x = "name",
-        y = "Restaurant Count"
+        y = "Location Count"
     )
 
 
