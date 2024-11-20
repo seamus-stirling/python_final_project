@@ -32,7 +32,7 @@ def city_splitter(restaurant_data):
     return city_restaurant_data, cities
 
 
-# [VIZ1] and [DA3]
+# [DA2] and [DA7]
 def most_locations(restaurant_data):
     locations = restaurant_data.groupby("name").size().sort_values(ascending=False)
     top_5 = locations.head(5).index.tolist()
@@ -95,7 +95,7 @@ def top_5_map(top_5_data):
     st.pydeck_chart(map, height=600)
 
 
-# [MAP] This function displays a map based on the chosen city
+# [MAP] and [ST3] This function displays a map based on the chosen city
 def city_maps(city_restaurant_data, city_selector):
     st.write("Current City:", city_selector)
     selected_city = city_selector
@@ -194,16 +194,23 @@ def city_dataframe(city_restaurant_data, city_selector):
 # [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(page_title="Fast Food Restaurants by City" , layout="wide")
-    popularity_map(restaurant_data)
-    st.header("View and Download Specific City Data")
-    city_selector = st.selectbox("Select a City", cities)
-    column1, column2 = st.columns(2)
-    with column1:
-        st.subheader("Interactive Map")
-        city_maps(city_restaurant_data, city_selector)
-    with column2:
-        st.subheader("Restaurant Locations")
-        city_dataframe(city_restaurant_data, city_selector)
+
+    tab1, tab2, tab3 = st.tabs(["All Fast Food Locations", "View and Download Specific City Data", "Most Popular Fast Food Restaurants"])
+
+    with tab1:
+        popularity_map(restaurant_data)
+    with tab2:
+        st.header("View and Download Specific City Data")
+        city_selector = st.selectbox("Select a City", cities)
+        column1, column2 = st.columns(2)
+        with column1:
+            st.subheader("Interactive Map")
+            city_maps(city_restaurant_data, city_selector)
+        with column2:
+            st.subheader("Restaurant Locations")
+            city_dataframe(city_restaurant_data, city_selector)
+    with tab3:
+        top_5_map(most_locations(restaurant_data))
 
 def location_bar_chart():
     return
@@ -213,6 +220,6 @@ def main():
     restaurant_data = read_data(csv_file)
     city_restaurant_data, cities = city_splitter(restaurant_data)
     home_page(city_restaurant_data, cities, restaurant_data)
-    top_5_map(most_locations(restaurant_data))
+
 
 main()
