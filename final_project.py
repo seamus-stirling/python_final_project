@@ -47,49 +47,29 @@ def top_5_map(top_5_data):
         "Taco Bell": "https://i.postimg.cc/MpbvZK7s/tbell-logo.png",
         "Subway": "https://i.postimg.cc/MpbvZK7s/tbell-logo.png"
     }
-    #filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(logo_sources)
+    filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
+        lambda name: {
+            "url": logo_sources.get(name, ""),
+            "width": 128,
+            "height": 128,
+            "anchorY": 128
+        }
+    )
     view_state = pdk.ViewState(
         latitude=float(top_5_data["latitude"].mean()),
         longitude=float(top_5_data["longitude"].mean()),
         zoom=4,
         pitch=0
     )
-    icon_data = {
-        "url": "https://i.postimg.cc/HsjRhqrj/Mcdonalds-Logo.png",
-        "width": 128,
-        "height": 128,
-        "anchorY": 128
-    }
-    """
-    filtered_top_5_data["icon_data"] = None
-    for i in filtered_top_5_data.index:
-        filtered_top_5_data["icon_data"][i] = icon_data
-    """
-    filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
-        lambda name: {
-            "url": logo_sources.get(name),  # Default to an empty string if no match
-            "width": 128,
-            "height": 128,
-            "anchorY": 128
-        }
+    layer = pdk.Layer(
+        "IconLayer",
+        data= filtered_top_5_data,
+        get_icon= "icon_data",
+        get_size= 4,
+        size_scale = 15,
+        get_position=["longitude", "latitude"],
+        pickable=True
     )
-    layer_1 = pdk.Layer(
-                "ScatterplotLayer",
-                data= filtered_top_5_data,
-                get_color="[255, 0, 0]",
-                get_radius=150,
-                get_position=["longitude", "latitude"],
-                pickable=True
-            )
-    layer_2 = pdk.Layer(
-                "IconLayer",
-                data= filtered_top_5_data,
-                get_icon= "icon_data",
-                get_size= 4,
-                size_scale = 15,
-                get_position=["longitude", "latitude"],
-                pickable=True
-            )
     tool_tip = {"html": "{name} <br> {Full Address}",
                 "style": {
                     "backgroundColor": "steelblue",
@@ -100,7 +80,7 @@ def top_5_map(top_5_data):
     map = pdk.Deck(
         map_style="mapbox://styles/mapbox/light-v9",
         initial_view_state=view_state,
-        layers= [layer_2],
+        layers= layer,
         tooltip=tool_tip
     )
     st.subheader("The 5 Restaurants with the Most Locations")
