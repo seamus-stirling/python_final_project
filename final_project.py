@@ -66,7 +66,7 @@ def top_5_map(top_5_data):
     layer = pdk.Layer(
                 "IconLayer",
                 data=top_5_data,
-                get_icon = icon_data,
+                get_icon = "https://logos-world.net/wp-content/uploads/2020/04/McDonalds-Logo.png",
                 get_size = 4,
                 size_scale = 15,
                 get_position=["longitude", "latitude"],
