@@ -45,7 +45,7 @@ def top_5_map(top_5_data):
         "Burger King": "https://i.postimg.cc/02Sz3Cb1/bk-logo.png",
         "Arby's": "https://i.postimg.cc/wxZt0rxk/arby-logo.png",
         "Taco Bell": "https://i.postimg.cc/MpbvZK7s/tbell-logo.png",
-        "Subway": "https://i.postimg.cc/MpbvZK7s/tbell-logo.png"
+        "Subway": "https://i.postimg.cc/qvdNdC3h/subway-logo.png"
     }
     filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
         lambda name: {
@@ -208,10 +208,14 @@ def location_bar_chart(restaurant_data):
 # [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(page_title="Fast Food Restaurants by City" , layout="wide")
-    tab1, tab2, tab3, tab4 = st.tabs(["All Fast Food Locations", "View and Download Specific City Data", "The 5 Most Popular Fast Food Chains","Fast Food Restaurants by State"])
+    tab0, tab1, tab2, tab3, tab4 = st.tabs(["Welcome Page", "All Fast Food Locations", "View and Download Specific City Data", "The 5 Most Popular Fast Food Chains","Fast Food Restaurants by State"])
     st.logo = (
         "https://i.postimg.cc/HsjRhqrj/Mcdonalds-Logo.png"
     )
+    with tab0:
+        st.header("Welcome to my final program for CS230!")
+        st.subheader("Description:")
+        st.write("This web app explores a data file containing 10,000 fast food restaurants nation. You can navigate through the app but using the tabs at the ")
     with tab1:
         popularity_map(restaurant_data)
     with tab2:
