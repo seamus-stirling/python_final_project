@@ -215,7 +215,7 @@ def home_page(city_restaurant_data, cities, restaurant_data):
         st.write("This web app explores a data file containing 10,000 fast food restaurants nation. You can navigate through the app by using the tabs at the top of the page. Each different tab showcases the data in a different way so feel free to explore! If you would like to download the data that I used for this project please click the button below to download the CSV file.")
         st.download_button(
             label="Download this data as a CSV",
-            data="fast_food_usa.csv",
+            data=restaurant_data,
             file_name="fast_food_usa.csv",
             mime="text/csv"
         )
