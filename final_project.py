@@ -67,7 +67,7 @@ def top_5_map(top_5_data):
     """
     filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
         lambda name: {
-            "url": logo_sources.get(name, ""),  # Default to an empty string if no match
+            "url": logo_sources.get(name),  # Default to an empty string if no match
             "width": 128,
             "height": 128,
             "anchorY": 128
