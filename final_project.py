@@ -192,10 +192,12 @@ def location_bar_chart(restaurant_data):
     states = restaurant_data["province"].unique()
     selected_states = st.selectbox("State Selection", states)
     filtered_data = restaurant_data[restaurant_data["province"] == selected_states]
-    location_counts = filtered_data.groupby("city")["name"].count().reset_index()
-    location_counts.columns = ["City", "Restaurant Count"]
+    location_counts = filtered_data.groupby("province")["name"].count().reset_index()
+    location_counts.columns = ["State", "Restaurant Count"]
     st.bar_chart(
-        data=location_counts
+        data=location_counts,
+        x = "State",
+        y = "Restaurant Count"
     )
 
 
