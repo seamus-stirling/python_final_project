@@ -67,6 +67,8 @@ def top_5_map(top_5_data):
                 "IconLayer",
                 data=top_5_data,
                 get_icon = icon_data,
+                get_size = 4,
+                size_scale = 15,
                 get_position=["longitude", "latitude"],
                 pickable=True
             )
