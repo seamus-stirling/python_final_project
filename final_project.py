@@ -41,11 +41,11 @@ def top_5_map(top_5_data):
     selection = st.multiselect("Restaurants", ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"], default= ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"])
     filtered_top_5_data = top_5_data[top_5_data["name"].isin(selection)]
     logo_sources = {
-        "McDonald's": "https://github.com/seamus-stirling/python_final_project/blob/64c94145e164fc0a53b8dbe4cd053892faa4e128/mcd_logo.png",
-        "Burger King": "bk_logo.png",
-        "Arby's": "arby_logo.png",
-        "Taco Bell": "tbell_logo.png",
-        "Subway": "subway_logo.png"
+        "McDonald's": "https://i.postimg.cc/HsjRhqrj/Mcdonalds-Logo.png",
+        "Burger King": "https://i.postimg.cc/02Sz3Cb1/bk-logo.png",
+        "Arby's": "https://i.postimg.cc/wxZt0rxk/arby-logo.png",
+        "Taco Bell": "https://i.postimg.cc/MpbvZK7s/tbell-logo.png",
+        "Subway": "https://i.postimg.cc/MpbvZK7s/tbell-logo.png"
     }
     #filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(logo_sources)
     view_state = pdk.ViewState(
@@ -60,11 +60,19 @@ def top_5_map(top_5_data):
         "height": 128,
         "anchorY": 128
     }
-
+    """
     filtered_top_5_data["icon_data"] = None
     for i in filtered_top_5_data.index:
         filtered_top_5_data["icon_data"][i] = icon_data
-
+    """
+    filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
+        lambda name: {
+            "url": logo_sources.get(name, ""),  # Default to an empty string if no match
+            "width": 128,
+            "height": 128,
+            "anchorY": 128
+        }
+    )
     layer_1 = pdk.Layer(
                 "ScatterplotLayer",
                 data= filtered_top_5_data,
