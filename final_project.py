@@ -11,7 +11,6 @@ This program takes a data file full of fast food locations in the United States 
 import pandas as pd
 import pydeck as pdk
 import streamlit as st
-import matplotlib.pyplot as mpb
 
 # [PY3], [DA1], [DA9] Takes the raw data that I downloaded and reorganized and puts it into a dataframe only using the important info columns
 def read_data(csv_file):
