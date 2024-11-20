@@ -194,7 +194,6 @@ def location_bar_chart(restaurant_data):
         use_container_width=True,
         x_label="Fast Food Chains",
         y_label="Number of Locations",
-        color = "name"
     )
 
 
