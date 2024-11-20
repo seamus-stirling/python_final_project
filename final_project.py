@@ -193,7 +193,7 @@ def city_dataframe(city_restaurant_data, city_selector):
 
 # [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities, restaurant_data):
-    st.title = "Fast Food Data Visualization"
+    st.title("Fast Food Data Visualization")
     st.set_page_config(page_title="Fast Food Restaurants by City" , layout="wide")
     tab1, tab2, tab3 = st.tabs(["All Fast Food Locations", "View and Download Specific City Data", "Most Popular Fast Food Restaurants"])
     with tab1:
@@ -209,6 +209,7 @@ def home_page(city_restaurant_data, cities, restaurant_data):
             st.subheader("Restaurant Locations")
             city_dataframe(city_restaurant_data, city_selector)
     with tab3:
+        st.header("Most Popular Fast Food Chains and Their Locations")
         top_5_map(most_locations(restaurant_data))
 
 def location_bar_chart():
