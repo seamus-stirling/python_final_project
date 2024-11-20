@@ -79,7 +79,7 @@ def top_5_map(top_5_data):
                 "IconLayer",
                 data= filtered_top_5_data,
                 get_icon= {
-                    "url": ["icon_data"],
+                    "url": "bk_logo.png",
                     "width": 128,
                     "height": 128,
                     "anchorY": 128
