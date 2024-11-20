@@ -98,6 +98,7 @@ def top_5_map(top_5_data):
     )
     st.subheader("The 5 Restaurants with the Most Locations")
     st.pydeck_chart(map, height=600)
+    st.dataframe(filtered_top_5_data)
 
 
 # [MAP] and [ST3] This function displays a map based on the chosen city
@@ -134,6 +135,7 @@ def city_maps(city_restaurant_data, city_selector):
         tooltip = tool_tip
     )
     st.pydeck_chart(map, height=600)
+
 
 
 # This function shows all the fast food restaurants nationwide
