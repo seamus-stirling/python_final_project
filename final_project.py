@@ -56,7 +56,7 @@ def top_5_map(top_5_data):
         pitch=0
     )
     icon_data = {
-        "url": "subway_logo.png",
+        "url": "https://github.com/seamus-stirling/python_final_project/blob/main/arby_logo.png",
         "width": 128,
         "height": 128,
         "anchorY": 128
