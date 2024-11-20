@@ -40,7 +40,6 @@ def most_locations(restaurant_data):
     return top_5_data
 
 def top_5_map(top_5_data):
-    st.header("All Fast Food Locations")
     selection = st.multiselect("Restaurants", ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"], default= ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"])
     filtered_top_5_data = top_5_data[top_5_data["name"].isin(selection)]
     logo_sources = {
@@ -129,6 +128,7 @@ def city_maps(city_restaurant_data, city_selector):
         layers = layer,
         tooltip = tool_tip
     )
+    st.header("All Fast Food Locations")
     st.pydeck_chart(map, height=600)
 
 
