@@ -41,11 +41,11 @@ def top_5_map(top_5_data):
     selection = st.multiselect("Restaurants", ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"], default= ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"])
     filtered_top_5_data = top_5_data[top_5_data["name"].isin(selection)]
     logo_sources = {
-        "McDonald's": "https://i.postimg.cc/HsjRhqrj/Mcdonalds-Logo.png",
-        "Burger King": "https://banner2.cleanpng.com/20180925/hjq/kisspng-burger-king-gmbh-munchen-logo-hamburger-brand-burger-king-logo-png-transparent-svg-vector-fr-1713934150498.webp",
-        "Arby's": "https://w7.pngwing.com/pngs/814/602/png-transparent-arby-039-s-hd-logo-thumbnail.png",
-        "Taco Bell": "https://banner2.cleanpng.com/20180809/glx/0b348786c1c4f0b18e517d4495732b24.webp",
-        "Subway": "https://e7.pngegg.com/pngimages/278/320/png-clipart-subway-logo-sandwich-restaurant-food-subway-food-text.png"
+        "McDonald's": "mcd_logo.png",
+        "Burger King": "bk_logo.png",
+        "Arby's": "arby_logo.png",
+        "Taco Bell": "tbell_logo.png",
+        "Subway": "subway_logo.png"
     }
     filtered_top_5_data["Icon URL"] = filtered_top_5_data["name"].map(logo_sources)
 
