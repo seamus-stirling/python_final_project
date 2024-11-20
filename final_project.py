@@ -66,6 +66,8 @@ def top_5_map(top_5_data):
     layer = pdk.Layer(
                 "ScatterplotLayer",
                 data= filtered_top_5_data,
+                get_color="[255, 0, 0]",
+                get_radius=150,
                 get_position=["longitude", "latitude"],
                 pickable=True
             )
