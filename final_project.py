@@ -188,11 +188,13 @@ def location_bar_chart(restaurant_data):
     selected_states = st.selectbox("State Selection", states)
     filtered_data = restaurant_data[restaurant_data["province"] == selected_states]
     location_counts = filtered_data.groupby("name")["name"].count().reset_index(name="Location Count").sort_values(by="Location Count", ascending=False).set_index("name")
+    st.dataframe(location_counts)
     st.bar_chart(
         data=location_counts.sort_values("Location Count", ascending=False),
         use_container_width=True,
         x_label="Fast Food Chains",
-        y_label="Number of Locations"
+        y_label="Number of Locations",
+        color = "name"
     )
 
 
