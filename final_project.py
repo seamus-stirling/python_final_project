@@ -65,8 +65,13 @@ def top_5_map(top_5_data):
     top_5_data["Icon URL"] = top_5_data["name"].map(logo_sources)
     layer = pdk.Layer(
                 "IconLayer",
-                data=top_5_data,
-                get_icon = "Mcdonalds Logo.png",
+                data= filtered_top_5_data,
+                get_icon = {
+                    "url": ["Icon URL"],
+                    "width": 128,
+                    "height": 128,
+                    "anchorY": 128
+                },
                 get_size = 4,
                 size_scale = 15,
                 get_position=["longitude", "latitude"],
@@ -199,15 +204,6 @@ def home_page(city_restaurant_data, cities, restaurant_data):
     with column2:
         st.subheader("Restaurant Locations")
         city_dataframe(city_restaurant_data, city_selector)
-
-
-
-
-def logo():
-
-    return
-
-
 
 
 def main():
