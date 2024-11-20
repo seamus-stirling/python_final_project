@@ -47,9 +47,7 @@ def top_5_map(top_5_data):
         "Taco Bell": "tbell_logo.png",
         "Subway": "subway_logo.png"
     }
-
     #filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(logo_sources)
-
     view_state = pdk.ViewState(
         latitude=float(top_5_data["latitude"].mean()),
         longitude=float(top_5_data["longitude"].mean()),
@@ -57,7 +55,7 @@ def top_5_map(top_5_data):
         pitch=0
     )
     icon_data = {
-        "url": "https://i.postimg.cc/HsjRhqrj/Mcdonalds-Logo.png",
+        "url": "https://github.com/seamus-stirling/python_final_project/blob/64c94145e164fc0a53b8dbe4cd053892faa4e128/mcd_logo.png",
         "width": 128,
         "height": 128,
         "anchorY": 128
