@@ -30,13 +30,14 @@ def city_splitter(restaurant_data):
     return city_restaurant_data, cities
 
 
-# [DA2] and [DA7]
+# [DA2], [DA4], [DA7]
 def most_locations(restaurant_data):
     locations = restaurant_data.groupby("name").size().sort_values(ascending=False)
     top_5 = locations.head(5).index.tolist()
     top_5_data = restaurant_data[restaurant_data["name"].isin(top_5)]
     return top_5_data
 
+# [MAP2]
 def top_5_map(top_5_data):
     selection = st.multiselect("Restaurants", ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"], default= ["McDonald's", "Burger King", "Arby's", "Taco Bell", "Subway"])
     filtered_top_5_data = top_5_data[top_5_data["name"].isin(selection)]
@@ -87,7 +88,7 @@ def top_5_map(top_5_data):
     st.pydeck_chart(map, height=600)
 
 
-# [MAP] and [ST3] This function displays a map based on the chosen city
+# [MAP1] This function displays a map based on the chosen city
 def city_maps(city_restaurant_data, city_selector):
     st.write("Current City:", city_selector)
     selected_city = city_selector
@@ -159,7 +160,7 @@ def popularity_map(restaurant_data):
     st.pydeck_chart(map, height=600)
 
 
-# [VIZ2] and [ST2] This function sets the parameters for the city dataframe and provides a button to download the info as a csv
+# [VIZ2] This function sets the parameters for the city dataframe and provides a button to download the info as a csv
 def city_dataframe(city_restaurant_data, city_selector):
     st.dataframe(
         data = city_restaurant_data[city_selector],
@@ -183,6 +184,7 @@ def city_dataframe(city_restaurant_data, city_selector):
         mime="text/csv"
     )
 
+# [VIZ1] [DA5]
 def location_bar_chart(restaurant_data):
     states = sorted(restaurant_data["province"].unique())
     selected_states = st.selectbox("State Selection", states)
@@ -205,14 +207,14 @@ def location_bar_chart(restaurant_data):
         )
 
 
-# [ST1] need to add ST 2-4
+# [ST1], [ST2, [ST3], [ST4]
 def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(page_title="Fast Food Restaurants by City" , layout="wide")
     tab0, tab1, tab2, tab3, tab4 = st.tabs(["Welcome Page", "All Fast Food Locations", "View and Download Specific City Data", "The 5 Most Popular Fast Food Chains","Fast Food Restaurants by State"])
     with tab0:
         st.header("Welcome to my final program for CS230!")
         st.subheader("Description:")
-        st.write("This web app explores a data file containing 10,000 fast food restaurants nation. You can navigate through the app by using the tabs at the top of the page. Each different tab showcases the data in a different way so feel free to explore! If you would like to download the data that I used for this project please click the button below to download the CSV file.")
+        st.write("This web app explores a data file containing 10,000 fast food restaurants nationwide. You can navigate through the app by using the tabs at the top of the page. Each different tab showcases the data in a different way so feel free to explore! If you would like to download the data that I used for this project please click the button below to download the CSV file.")
         st.download_button(
             label="Download this data as a CSV",
             data=restaurant_data.to_csv(index=False),
