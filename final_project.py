@@ -63,7 +63,7 @@ def top_5_map(top_5_data):
         "Subway": "https://e7.pngegg.com/pngimages/278/320/png-clipart-subway-logo-sandwich-restaurant-food-subway-food-text.png"
     }
     top_5_data["Icon URL"] = top_5_data["name"].map(logo_sources)
-    layer = pdk.Layer(
+    layer_1 = pdk.Layer(
                 "ScatterplotLayer",
                 data= filtered_top_5_data,
                 get_color="[255, 0, 0]",
@@ -71,7 +71,13 @@ def top_5_map(top_5_data):
                 get_position=["longitude", "latitude"],
                 pickable=True
             )
-
+    layer_2 = pdk.Layer(
+                "IconLayer",
+                data= filtered_top_5_data,
+                get_icon= "'url': Icon URL, 'width': 128, 'height': 128, 'anchorY': 128",
+                get_position=["longitude", "latitude"],
+                pickable=True
+            )
     tool_tip = {"html": "{name} <br> {Full Address}",
                 "style": {
                     "backgroundColor": "steelblue",
@@ -82,7 +88,7 @@ def top_5_map(top_5_data):
     map = pdk.Deck(
         map_style="mapbox://styles/mapbox/light-v9",
         initial_view_state=view_state,
-        layers=layer,
+        layers= [layer_1, layer_2],
         tooltip=tool_tip
     )
     st.subheader("The 5 Restaurants with the Most Locations")
