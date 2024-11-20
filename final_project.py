@@ -48,7 +48,7 @@ def top_5_map(top_5_data):
         "Subway": "subway_logo.png"
     }
 
-    filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(logo_sources)
+    #filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(logo_sources)
 
     view_state = pdk.ViewState(
         latitude=float(top_5_data["latitude"].mean()),
@@ -62,6 +62,11 @@ def top_5_map(top_5_data):
         "height": 128,
         "anchorY": 128
     }
+
+    filtered_top_5_data["icon_data"] = None
+    for i in filtered_top_5_data.index:
+        filtered_top_5_data["icon_data"][i] = icon_data
+
     layer_1 = pdk.Layer(
                 "ScatterplotLayer",
                 data= filtered_top_5_data,
@@ -73,9 +78,10 @@ def top_5_map(top_5_data):
     layer_2 = pdk.Layer(
                 "IconLayer",
                 data= filtered_top_5_data,
-                get_icon= icon_data,
+                get_icon= "icon_data",
+                get_size= 10,
+                size_scale = 25,
                 get_position=["longitude", "latitude"],
-                get_size = 15,
                 pickable=True
             )
     tool_tip = {"html": "{name} <br> {Full Address}",
