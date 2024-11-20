@@ -49,7 +49,7 @@ def top_5_map(top_5_data):
     }
     filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
         lambda name: {
-            "url": logo_sources.get(name, ""),  # Get the logo URL or an empty string if not found
+            "url": filtered_top_5_data["icon_url"],
             "width": 128,
             "height": 128,
             "anchorY": 128
@@ -76,7 +76,7 @@ def top_5_map(top_5_data):
                 pickable=True
             )
     layer_2 = pdk.Layer(
-                "ImageLayer",
+                "IconLayer",
                 data= filtered_top_5_data,
                 get_icon= "icon_data",
                 get_position=["longitude", "latitude"],
@@ -88,7 +88,7 @@ def top_5_map(top_5_data):
                     "backgroundColor": "steelblue",
                     "color": "white",
                     "fontSize": "12px"
-                }
+                    }
                 }
     map = pdk.Deck(
         map_style="mapbox://styles/mapbox/light-v9",
