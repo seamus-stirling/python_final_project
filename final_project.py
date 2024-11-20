@@ -49,7 +49,7 @@ def top_5_map(top_5_data):
     }
     filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
         lambda name: {
-            "url": ["icon_data"],
+            "url": logo_sources.get(name, ""),
             "width": 128,
             "height": 128,
             "anchorY": 128
@@ -78,12 +78,7 @@ def top_5_map(top_5_data):
     layer_2 = pdk.Layer(
                 "IconLayer",
                 data= filtered_top_5_data,
-                get_icon= {
-                    "url": "bk_logo.png",
-                    "width": 128,
-                    "height": 128,
-                    "anchorY": 128
-                },
+                get_icon= "icon_data",
                 get_position=["longitude", "latitude"],
                 get_size = 15,
                 pickable=True
