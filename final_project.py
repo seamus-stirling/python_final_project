@@ -190,7 +190,7 @@ def location_bar_chart(restaurant_data):
     location_counts = filtered_data.groupby("name")["name"].count().reset_index(name="Location Count").sort_values(by="Location Count", ascending=False).set_index("name")
     st.dataframe(location_counts)
     st.bar_chart(
-        data=location_counts.sort_values("Location Count", ascending=False),
+        data= location_counts,
         use_container_width=True,
         x_label="Fast Food Chains",
         y_label="Number of Locations",
@@ -200,7 +200,7 @@ def location_bar_chart(restaurant_data):
 # [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(page_title="Fast Food Restaurants by City" , layout="wide")
-    tab1, tab2, tab3 = st.tabs(["All Fast Food Locations", "View and Download Specific City Data", "Most Popular Fast Food Restaurants"])
+    tab1, tab2, tab3, tab4 = st.tabs(["All Fast Food Locations", "View and Download Specific City Data", "The 5 Most Popular Fast Food Chains","Fast Food Restaurants by State"])
     st.logo = (
         "https://i.postimg.cc/HsjRhqrj/Mcdonalds-Logo.png"
     )
@@ -217,8 +217,10 @@ def home_page(city_restaurant_data, cities, restaurant_data):
             st.subheader("Restaurant Locations")
             city_dataframe(city_restaurant_data, city_selector)
     with tab3:
-        st.header("Most Popular Fast Food Chains and Their Locations")
+        st.header("The 5 Most Popular Fast Food Chains")
         top_5_map(most_locations(restaurant_data))
+    with tab4:
+        st.header("Fast Food Restaurants by State")
         location_bar_chart(restaurant_data)
 
 
