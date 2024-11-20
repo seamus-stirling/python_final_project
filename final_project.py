@@ -11,8 +11,7 @@ This program takes a data file full of fast food locations in the United States 
 import pandas as pd
 import pydeck as pdk
 import streamlit as st
-import numpy as np
-from altair import layer
+import matplotlib.pyplot as mpb
 
 # [PY3], [DA1], [DA9] Takes the raw data that I downloaded and reorganized and puts it into a dataframe only using the important info columns
 def read_data(csv_file):
@@ -190,6 +189,16 @@ def city_dataframe(city_restaurant_data, city_selector):
         mime="text/csv"
     )
 
+def location_bar_chart(restaurant_data):
+    states = restaurant_data["province"].unique()
+    selected_states = st.selectbox("State Selection", states)
+    filtered_data = restaurant_data[restaurant_data["province"] == selected_states]
+    location_counts = filtered_data.groupby("city")["name"].count().reset_index()
+    location_counts.columns = ["City", "Restaurant Count"]
+    st.bar_chart(
+        data=location_counts
+    )
+
 
 # [ST1] need to add ST 2-4
 def home_page(city_restaurant_data, cities, restaurant_data):
@@ -213,9 +222,8 @@ def home_page(city_restaurant_data, cities, restaurant_data):
     with tab3:
         st.header("Most Popular Fast Food Chains and Their Locations")
         top_5_map(most_locations(restaurant_data))
+        location_bar_chart(restaurant_data)
 
-def location_bar_chart():
-    return
 
 def main():
     csv_file = "fast_food_usa.csv"
