@@ -50,9 +50,6 @@ def top_5_map(top_5_data):
     filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
         lambda name: {
             "url": logo_sources.get(name, ""),
-            "width": 128,
-            "height": 128,
-            "anchorY": 128
         }
     )
     view_state = pdk.ViewState(
