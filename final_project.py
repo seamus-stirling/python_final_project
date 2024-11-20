@@ -209,13 +209,16 @@ def location_bar_chart(restaurant_data):
 def home_page(city_restaurant_data, cities, restaurant_data):
     st.set_page_config(page_title="Fast Food Restaurants by City" , layout="wide")
     tab0, tab1, tab2, tab3, tab4 = st.tabs(["Welcome Page", "All Fast Food Locations", "View and Download Specific City Data", "The 5 Most Popular Fast Food Chains","Fast Food Restaurants by State"])
-    st.logo = (
-        "https://i.postimg.cc/HsjRhqrj/Mcdonalds-Logo.png"
-    )
     with tab0:
         st.header("Welcome to my final program for CS230!")
         st.subheader("Description:")
-        st.write("This web app explores a data file containing 10,000 fast food restaurants nation. You can navigate through the app but using the tabs at the ")
+        st.write("This web app explores a data file containing 10,000 fast food restaurants nation. You can navigate through the app by using the tabs at the top of the page. Each different tab showcases the data in a different way so feel free to explore! If you would like to download the data that I used for this project please click the button below to download the CSV file.")
+        st.download_button(
+            label="Download this data as a CSV",
+            data="fast_food_usa.csv",
+            file_name="fast_food_usa.csv",
+            mime="text/csv"
+        )
     with tab1:
         popularity_map(restaurant_data)
     with tab2:
