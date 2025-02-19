@@ -16,16 +16,18 @@ import streamlit as st
 def read_data(csv_file):
     try:
         restaurant_data = pd.read_csv(csv_file, usecols=[1,2,3,4,5,6,7,8,9])
+        #Takes three columns from restaurant data and creates a new column with a full address using an inline (lambda) function
         restaurant_data["Full Address"] = restaurant_data.apply(lambda row: f"{row['address']}, {row['city']}, {row['province']}", axis=1)
         return restaurant_data
     except Exception as e:
         st.error("Error: The file is either empty, unreadable, or missing a column")
 
 
-# [PY2], [PY4], [PY5], and [DA5] Using the restaurant data and my city list I read all of the data for the corresponding city into a dictionary
+# [PY2], [PY4], [PY5], and [DA5] Using the restaurant data and my city list I read all the data for the corresponding city into a dictionary
 def city_splitter(restaurant_data):
     cities = ["Boston", "New York", "Los Angeles", "Philadelphia", "Atlanta", "Houston", "Seattle"]
     filtered_restaurant_data = restaurant_data[(restaurant_data["city"] != "Atlanta") | (restaurant_data["province"] == "GA")]
+    #Reads only the cities in the cities list into a new dictionary
     city_restaurant_data = {city: filtered_restaurant_data[filtered_restaurant_data["city"] == city] for city in cities}
     return city_restaurant_data, cities
 
@@ -36,6 +38,7 @@ def most_locations(restaurant_data):
     top_5 = locations.head(5).index.tolist()
     top_5_data = restaurant_data[restaurant_data["name"].isin(top_5)]
     return top_5_data
+
 
 # [MAP2]
 def top_5_map(top_5_data):
@@ -48,6 +51,7 @@ def top_5_map(top_5_data):
         "Taco Bell": "https://i.postimg.cc/MpbvZK7s/tbell-logo.png",
         "Subway": "https://i.postimg.cc/qvdNdC3h/subway-logo.png"
     }
+    #Creates a new column in data frame that stores icon data
     filtered_top_5_data["icon_data"] = filtered_top_5_data["name"].map(
         lambda name: {
             "url": logo_sources.get(name, ""),
@@ -213,6 +217,8 @@ def home_page(city_restaurant_data, cities, restaurant_data):
     tab0, tab1, tab2, tab3, tab4 = st.tabs(["Welcome Page", "All Fast Food Locations", "View and Download Specific City Data", "The 5 Most Popular Fast Food Chains","Fast Food Restaurants by State"])
     with tab0:
         st.header("Welcome to my final program for CS230!")
+        st.subheader("For Employers")
+        st.write("Greetings future employers. If you are reading this message you likely clicked the link I submitted through my application. This year I got the chance to take a python course and our final project was to build this website so that we could share our skills with employers. While I think this website is somewhat basic it does a great job of showcasing my foundational python skills. I hope you enjoy my website and keep me in mind when making hiring decisions!")
         st.subheader("Description:")
         st.write("This web app explores a data file containing 10,000 fast food restaurants nationwide. You can navigate through the app by using the tabs at the top of the page. Each different tab showcases the data in a different way so feel free to explore! If you would like to download the data that I used for this project please click the button below to download the CSV file.")
         st.download_button(
